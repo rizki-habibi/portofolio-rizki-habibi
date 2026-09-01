@@ -1,0 +1,420 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ========================
+   RESET & BASE
+======================== */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --warna-hitam: #0a0a0a;
+  --warna-putih: #f5f5f5;
+  --warna-abu: #2a2a2a;
+  --font-judul: 'Bebas Neue', Impact, sans-serif;
+  --font-teks: 'Inter', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+}
+
+html {
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+}
+
+body {
+  background-color: var(--warna-hitam);
+  color: var(--warna-putih);
+  font-family: var(--font-teks);
+  overflow-x: hidden;
+  cursor: none;
+}
+
+/* ========================
+   KURSOR KUSTOM
+======================== */
+.kursor-utama {
+  position: fixed;
+  width: 12px;
+  height: 12px;
+  background: white;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  transition: transform 0.1s ease, width 0.2s ease, height 0.2s ease;
+  mix-blend-mode: difference;
+}
+
+.kursor-lingkaran {
+  position: fixed;
+  width: 40px;
+  height: 40px;
+  border: 1.5px solid rgba(255, 255, 255, 0.5);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9998;
+  transform: translate(-50%, -50%);
+  transition: transform 0.15s ease, width 0.3s ease, height 0.3s ease, border-color 0.3s ease;
+  mix-blend-mode: difference;
+}
+
+/* ========================
+   SCROLLBAR
+======================== */
+::-webkit-scrollbar {
+  width: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0a0a0a;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #444;
+  border-radius: 2px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #888;
+}
+
+/* ========================
+   TIPOGRAFI
+======================== */
+.font-judul {
+  font-family: var(--font-judul);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.font-mono {
+  font-family: var(--font-mono);
+}
+
+/* ========================
+   EFEK GLITCH
+======================== */
+.teks-glitch {
+  position: relative;
+  display: inline-block;
+}
+
+.teks-glitch::before,
+.teks-glitch::after {
+  content: attr(data-teks);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: transparent;
+}
+
+.teks-glitch::before {
+  left: 2px;
+  text-shadow: -2px 0 rgba(255, 0, 0, 0.5);
+  clip-path: polygon(0 30%, 100% 30%, 100% 50%, 0 50%);
+  animation: glitch-1 3s infinite linear alternate-reverse;
+}
+
+.teks-glitch::after {
+  left: -2px;
+  text-shadow: 2px 0 rgba(0, 255, 255, 0.5);
+  clip-path: polygon(0 60%, 100% 60%, 100% 80%, 0 80%);
+  animation: glitch-2 2s infinite linear alternate-reverse;
+}
+
+@keyframes glitch-1 {
+  0%, 100% { clip-path: polygon(0 0, 100% 0, 100% 0, 0 0); }
+  20% { clip-path: polygon(0 20%, 100% 20%, 100% 30%, 0 30%); }
+  40% { clip-path: polygon(0 50%, 100% 50%, 100% 60%, 0 60%); }
+  60% { clip-path: polygon(0 70%, 100% 70%, 100% 90%, 0 90%); }
+}
+
+@keyframes glitch-2 {
+  0%, 100% { clip-path: polygon(0 0, 100% 0, 100% 0, 0 0); }
+  15% { clip-path: polygon(0 40%, 100% 40%, 100% 50%, 0 50%); }
+  35% { clip-path: polygon(0 60%, 100% 60%, 100% 70%, 0 70%); }
+  55% { clip-path: polygon(0 80%, 100% 80%, 100% 95%, 0 95%); }
+}
+
+/* ========================
+   GARIS AKSI MANGA
+======================== */
+.garis-aksi {
+  background-image: repeating-conic-gradient(
+    from 0deg at 50% 50%,
+    rgba(255,255,255,0.02) 0deg,
+    transparent 1deg,
+    transparent 2deg
+  );
+}
+
+/* ========================
+   PANEL MANGA
+======================== */
+.panel-manga {
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  position: relative;
+  overflow: hidden;
+}
+
+.panel-manga::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(255, 255, 255, 0.01) 2px,
+    rgba(255, 255, 255, 0.01) 4px
+  );
+  pointer-events: none;
+}
+
+/* ========================
+   HALFTONE DOTS
+======================== */
+.halftone {
+  background-image: radial-gradient(circle, rgba(255,255,255,0.15) 1px, transparent 1px);
+  background-size: 16px 16px;
+}
+
+/* ========================
+   SPEED LINES
+======================== */
+.garis-kecepatan {
+  background: repeating-linear-gradient(
+    90deg,
+    transparent 0px,
+    transparent 4px,
+    rgba(255, 255, 255, 0.02) 4px,
+    rgba(255, 255, 255, 0.02) 5px
+  );
+}
+
+/* ========================
+   SCAN LINE
+======================== */
+.scan-line::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: rgba(255, 255, 255, 0.08);
+  animation: scan-gerak 4s linear infinite;
+  pointer-events: none;
+}
+
+@keyframes scan-gerak {
+  0% { top: 0; }
+  100% { top: 100%; }
+}
+
+/* ========================
+   NOISE TEXTURE
+======================== */
+.noise-texture::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 9990;
+  opacity: 0.4;
+}
+
+/* ========================
+   ANIMASI MASUK
+======================== */
+.masuk-bawah {
+  opacity: 0;
+  transform: translateY(50px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.masuk-bawah.terlihat {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.masuk-kiri {
+  opacity: 0;
+  transform: translateX(-50px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.masuk-kiri.terlihat {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.masuk-kanan {
+  opacity: 0;
+  transform: translateX(50px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.masuk-kanan.terlihat {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* ========================
+   GARIS DEKORATIF
+======================== */
+.garis-dekor {
+  position: relative;
+}
+
+.garis-dekor::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: white;
+  transition: width 0.4s ease;
+}
+
+.garis-dekor:hover::after {
+  width: 100%;
+}
+
+/* ========================
+   CARD INVESTIGASI
+======================== */
+.kartu-kasus {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.kartu-kasus::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.05),
+    transparent
+  );
+  transition: left 0.5s ease;
+}
+
+.kartu-kasus:hover::before {
+  left: 100%;
+}
+
+.kartu-kasus:hover {
+  border-color: rgba(255, 255, 255, 0.25);
+  background: rgba(255, 255, 255, 0.06);
+  transform: translateY(-4px);
+}
+
+/* ========================
+   PROGRESS BAR
+======================== */
+.bar-keahlian {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 0;
+  overflow: hidden;
+  height: 3px;
+}
+
+.bar-keahlian-isi {
+  height: 100%;
+  background: white;
+  transform-origin: left;
+  transform: scaleX(0);
+  transition: transform 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.bar-keahlian-isi.aktif {
+  transform: scaleX(1);
+}
+
+/* ========================
+   TEKS HIGHLIGHT
+======================== */
+.highlight-teks {
+  position: relative;
+  display: inline-block;
+}
+
+.highlight-teks::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 30%;
+  background: rgba(255, 255, 255, 0.15);
+  z-index: -1;
+}
+
+/* ========================
+   NAVIGASI
+======================== */
+.nav-aktif {
+  color: white;
+}
+
+.nav-aktif::after {
+  width: 100% !important;
+}
+
+/* ========================
+   TIMELINE GARIS
+======================== */
+.garis-timeline {
+  background: linear-gradient(to bottom, transparent, white 20%, white 80%, transparent);
+  width: 1px;
+}
+
+/* ========================
+   BADGE STATUS
+======================== */
+.lencana-aktif {
+  animation: denyut 2s ease-in-out infinite;
+}
+
+@keyframes denyut {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(0.95); }
+}
+
+/* ========================
+   EFEK HOVER TEKS
+======================== */
+.teks-hover-putih {
+  transition: color 0.3s ease;
+}
+
+.teks-hover-putih:hover {
+  color: white;
+}
+
+/* ========================
+   RESPONSIVE
+======================== */
+@media (max-width: 768px) {
+  .font-raksasa {
+    font-size: 4rem !important;
+  }
+}
