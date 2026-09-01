@@ -27,6 +27,7 @@ import StatistikLive from './komponen/StatistikLive'
 import TimelineAktivisme from './komponen/TimelineAktivisme'
 import DarkWebMonitor from './komponen/DarkWebMonitor'
 import IndeksKorupsi from './komponen/IndeksKorupsi'
+import DataNyata from './komponen/DataNyata'
 
 // Pemisah bergaya manga
 const Pemisah = () => (
@@ -73,6 +74,8 @@ const Aplikasi = () => {
         <main>
           {/* BLOK 1: Perkenalan */}
           <Aman><HalamanUtama /></Aman>
+          <Pemisah />
+          <Aman><DataNyata /></Aman>
           <Pemisah />
           <Aman><TentangSaya /></Aman>
           <Pemisah />

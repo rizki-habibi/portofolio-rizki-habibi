@@ -30,7 +30,11 @@ body {
   color: var(--warna-putih);
   font-family: var(--font-teks);
   overflow-x: hidden;
-  cursor: none;
+}
+
+/* Kursor custom hanya untuk perangkat pointer non-touch */
+@media (pointer: fine) {
+  body { cursor: none; }
 }
 
 /* ========================
