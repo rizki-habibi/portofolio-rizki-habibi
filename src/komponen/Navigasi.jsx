@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
+import { ArrowRight } from 'lucide-react'
 
 const itemMenu = [
   { label: 'Beranda', id: 'beranda' },
@@ -52,11 +53,10 @@ const Navigasi = () => {
         initial={{ y: -100, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-          gulir
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${gulir
             ? 'bg-hitam/90 backdrop-blur-md border-b border-white/5'
             : 'bg-transparent'
-        }`}
+          }`}
       >
         <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
           {/* Logo */}
@@ -76,9 +76,8 @@ const Navigasi = () => {
               <motion.button
                 key={item.id}
                 onClick={() => gulirKe(item.id)}
-                className={`relative text-sm font-mono uppercase tracking-widest transition-colors duration-300 ${
-                  seksiAktif === item.id ? 'text-white' : 'text-white/40 hover:text-white/80'
-                }`}
+                className={`relative text-sm font-mono uppercase tracking-widest transition-colors duration-300 ${seksiAktif === item.id ? 'text-white' : 'text-white/40 hover:text-white/80'
+                  }`}
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: i * 0.07 + 0.3 }}
