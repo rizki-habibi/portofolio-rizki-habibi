@@ -198,8 +198,8 @@ const AlurInvestigasi = ({ langkah }) => (
         {langkah.map((l, i) => (
           <div key={i} className="flex flex-col items-center gap-2 flex-1">
             <div className={`w-2 h-2 rounded-full border flex-shrink-0 z-10 ${l.langkah === 'Status' || l.langkah === 'AKTIF'
-                ? 'bg-white border-white'
-                : 'bg-hitam border-white/40'
+              ? 'bg-white border-white'
+              : 'bg-hitam border-white/40'
               }`} />
             <div className="text-center px-0.5">
               <div className="font-mono text-[9px] text-white/50 leading-tight whitespace-nowrap overflow-hidden text-ellipsis max-w-[60px]">
@@ -315,7 +315,7 @@ const KartuKasus = ({ kasus, terlihat, delay }) => {
                         <ExternalLink size={12} className="text-white/25 group-hover:text-white/60 flex-shrink-0" />
                         <span className="font-mono text-xs text-white/50 group-hover:text-white/80 transition-colors">{s.label}</span>
                         <div className="ml-auto font-mono text-xs text-white/15 truncate max-w-[140px]">
-                          {new URL(s.url).hostname}
+                          {(() => { try { return new URL(s.url).hostname } catch { return '' } })()}
                         </div>
                       </a>
                     ))}

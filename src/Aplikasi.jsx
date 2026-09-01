@@ -1,13 +1,14 @@
-import React, { useState } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+import React, { useState, useEffect } from 'react'
+import { motion } from 'framer-motion'
 
 // Inti
 import PembukaSakamoto from './komponen/PembukaSakamoto'
 import KursorKustom from './komponen/KursorKustom'
 import Navigasi from './komponen/Navigasi'
 import PartikelLatar from './komponen/PartikelLatar'
+import BatasPesan from './komponen/BatasPesan'
 
-// 10 Seksi utama
+// Seksi utama
 import HalamanUtama from './komponen/HalamanUtama'
 import TentangSaya from './komponen/TentangSaya'
 import Keahlian from './komponen/Keahlian'
@@ -19,7 +20,7 @@ import JadwalKerja from './komponen/JadwalKerja'
 import Kontak from './komponen/Kontak'
 import Footer from './komponen/Footer'
 
-// Seksi tambahan baru
+// Seksi baru
 import BuktiNyata from './komponen/BuktiNyata'
 import SkemaJaringan from './komponen/SkemaJaringan'
 import StatistikLive from './komponen/StatistikLive'
@@ -35,66 +36,83 @@ const Pemisah = () => (
   </div>
 )
 
+// Bungkus tiap komponen dengan Error Boundary
+const Aman = ({ children }) => <BatasPesan>{children}</BatasPesan>
+
 const Aplikasi = () => {
-  const [pembukaSelesai, setPembukaSelesai] = useState(false)
+  const [tampil, setTampil] = useState(false)
+
+  // Fallback: tampilkan konten setelah 4 detik, bahkan jika pembuka gagal
+  useEffect(() => {
+    const batas = setTimeout(() => setTampil(true), 4000)
+    return () => clearTimeout(batas)
+  }, [])
 
   return (
-    <>
-      <PembukaSakamoto selesai={() => setPembukaSelesai(true)} />
-      <div className="noise-texture fixed inset-0 z-[9980] pointer-events-none" />
+    <div className="relative">
+      {/* Layar pembuka — ditangkap error boundary, tidak block konten */}
+      {!tampil && (
+        <Aman>
+          <PembukaSakamoto selesai={() => setTampil(true)} />
+        </Aman>
+      )}
 
-      <AnimatePresence>
-        {pembukaSelesai && (
-          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.6 }}>
-            <KursorKustom />
-            <PartikelLatar />
-            <Navigasi />
+      {/* Konten utama — muncul setelah pembuka selesai/timeout */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: tampil ? 1 : 0 }}
+        transition={{ duration: 0.6 }}
+        style={{ visibility: tampil ? 'visible' : 'hidden' }}
+      >
+        {/* Overlay & UI persisten */}
+        <div className="noise-texture fixed inset-0 z-[9980] pointer-events-none" />
+        <Aman><KursorKustom /></Aman>
+        <Aman><PartikelLatar /></Aman>
+        <Aman><Navigasi /></Aman>
 
-            <main>
-              {/* ─── BLOK 1: Perkenalan ─── */}
-              <HalamanUtama />
-              <Pemisah />
-              <TentangSaya />
-              <Pemisah />
-              <Keahlian />
+        <main>
+          {/* BLOK 1: Perkenalan */}
+          <Aman><HalamanUtama /></Aman>
+          <Pemisah />
+          <Aman><TentangSaya /></Aman>
+          <Pemisah />
+          <Aman><Keahlian /></Aman>
 
-              {/* ─── BLOK 2: Investigasi ─── */}
-              <Pemisah />
-              <Kasus />
-              <Pemisah />
-              <BuktiNyata />
-              <Pemisah />
-              <SkemaJaringan />
+          {/* BLOK 2: Investigasi */}
+          <Pemisah />
+          <Aman><Kasus /></Aman>
+          <Pemisah />
+          <Aman><BuktiNyata /></Aman>
+          <Pemisah />
+          <Aman><SkemaJaringan /></Aman>
 
-              {/* ─── BLOK 3: Data & Statistik ─── */}
-              <Pemisah />
-              <StatistikLive />
-              <Pemisah />
-              <IndeksKorupsi />
-              <Pemisah />
-              <DarkWebMonitor />
+          {/* BLOK 3: Data & Statistik */}
+          <Pemisah />
+          <Aman><StatistikLive /></Aman>
+          <Pemisah />
+          <Aman><IndeksKorupsi /></Aman>
+          <Pemisah />
+          <Aman><DarkWebMonitor /></Aman>
 
-              {/* ─── BLOK 4: Aktivisme & Misi ─── */}
-              <Pemisah />
-              <TimelineAktivisme />
-              <Pemisah />
-              <Misi />
-              <Pemisah />
-              <KemampuanTempur />
+          {/* BLOK 4: Aktivisme & Misi */}
+          <Pemisah />
+          <Aman><TimelineAktivisme /></Aman>
+          <Pemisah />
+          <Aman><Misi /></Aman>
+          <Pemisah />
+          <Aman><KemampuanTempur /></Aman>
 
-              {/* ─── BLOK 5: Tools & Penutup ─── */}
-              <Pemisah />
-              <InvestasiAI />
-              <Pemisah />
-              <JadwalKerja />
-              <Pemisah />
-              <Kontak />
-              <Footer />
-            </main>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </>
+          {/* BLOK 5: Tools & Penutup */}
+          <Pemisah />
+          <Aman><InvestasiAI /></Aman>
+          <Pemisah />
+          <Aman><JadwalKerja /></Aman>
+          <Pemisah />
+          <Aman><Kontak /></Aman>
+          <Aman><Footer /></Aman>
+        </main>
+      </motion.div>
+    </div>
   )
 }
 
