@@ -5,12 +5,14 @@ import { ArrowRight } from 'lucide-react'
 const itemMenu = [
   { label: 'Beranda', id: 'beranda' },
   { label: 'Tentang', id: 'tentang' },
-  { label: 'Keahlian', id: 'keahlian' },
   { label: 'Kasus', id: 'kasus' },
-  { label: 'Misi', id: 'misi' },
-  { label: 'Kemampuan', id: 'kemampuan' },
+  { label: 'Bukti', id: 'bukti' },
+  { label: 'Skema', id: 'skema' },
+  { label: 'Statistik', id: 'statistik' },
+  { label: 'Indeks', id: 'indeks' },
+  { label: 'Monitor', id: 'monitor' },
+  { label: 'Timeline', id: 'timeline' },
   { label: 'AI Tools', id: 'ai-tools' },
-  { label: 'Jadwal', id: 'jadwal' },
   { label: 'Kontak', id: 'kontak' },
 ]
 
@@ -54,8 +56,8 @@ const Navigasi = () => {
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${gulir
-            ? 'bg-hitam/90 backdrop-blur-md border-b border-white/5'
-            : 'bg-transparent'
+          ? 'bg-hitam/90 backdrop-blur-md border-b border-white/5'
+          : 'bg-transparent'
           }`}
       >
         <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
